@@ -44,6 +44,10 @@ export default function FiveLanding() {
   const [eraserTriggered, setEraserTriggered] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [waitlistPosition, setWaitlistPosition] = useState(0);
+  const [erasingBolt, setErasingBolt] = useState(false);
+  const [boltErased, setBoltErased] = useState(false);
+  const [sparksAmount, setSparksAmount] = useState(6200);
+  const [sparksDraining, setSparksDraining] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1500);
@@ -64,9 +68,52 @@ export default function FiveLanding() {
     { id: 'other', label: 'Other', icon: <img src="/assets/other_expense_icon.png" alt="Other" className="expense-icon-img" decoding="async" loading="eager" />, amount: 0 },
   ];
 
+  const handleResetDemo = () => {
+    setBoltErased(false);
+    setErasingBolt(false);
+    setEraserTriggered(false);
+    setSparksAmount(6200);
+    setSparksDraining(false);
+  };
+
   const handleEraserClick = () => {
-    setEraserTriggered(true);
-    setTimeout(() => setEraserTriggered(false), 3000);
+    if (erasingBolt || boltErased) return;
+    
+    // Step 1: Flash confirmation
+    setErasingBolt(true);
+    
+    // Step 2-3: Burn and fragment (handled by CSS)
+    setTimeout(() => {
+      // Step 4: Drain sparks
+      setSparksDraining(true);
+      const drainDuration = 600;
+      const drainSteps = 30;
+      const drainAmount = 5800;
+      const stepAmount = drainAmount / drainSteps;
+      let currentStep = 0;
+      
+      const drainInterval = setInterval(() => {
+        currentStep++;
+        setSparksAmount(prev => Math.max(400, prev - stepAmount));
+        
+        if (currentStep >= drainSteps) {
+          clearInterval(drainInterval);
+          setSparksDraining(false);
+        }
+      }, drainDuration / drainSteps);
+    }, 400);
+    
+    // Step 5: Transform row and show credit
+    setTimeout(() => {
+      setBoltErased(true);
+      setErasingBolt(false);
+      setEraserTriggered(true);
+    }, 1000);
+    
+    // Step 6: Hide success line after 3 seconds
+    setTimeout(() => {
+      setEraserTriggered(false);
+    }, 4000);
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -190,16 +237,36 @@ export default function FiveLanding() {
             </div>
 
             <div className="eraser-demo-feed">
-              <div className="transaction-feed">
-                <div className="transaction-item">
+              <div className={`transaction-feed ${erasingBolt ? 'feed-pulsing' : ''}`}>
+                <div className={`transaction-item transaction-item-bolt ${erasingBolt ? 'transaction-erasing' : ''} ${boltErased ? 'transaction-erased' : ''}`}>
                   <div className="transaction-icon">
                     <BoltLogo className="transaction-logo" />
                   </div>
                   <div className="transaction-details">
-                    <div className="transaction-merchant">Bolt</div>
+                    <div className="transaction-merchant">
+                      {boltErased ? 'Bolt — ERASED' : 'Bolt'}
+                    </div>
                     <div className="transaction-time">23:47</div>
                   </div>
-                  <div className="transaction-amount">₦5,800</div>
+                  <div className={`transaction-amount ${erasingBolt ? 'amount-fragmenting' : ''}`}>
+                    {boltErased ? (
+                      <span className="amount-credited">+₦5,800</span>
+                    ) : (
+                      '₦5,800'
+                    )}
+                  </div>
+                  {erasingBolt && (
+                    <>
+                      <div className="spark-particle spark-particle-1"></div>
+                      <div className="spark-particle spark-particle-2"></div>
+                      <div className="spark-particle spark-particle-3"></div>
+                      <div className="spark-particle spark-particle-4"></div>
+                      <div className="spark-particle spark-particle-5"></div>
+                      <div className="spark-particle spark-particle-6"></div>
+                      <div className="spark-particle spark-particle-7"></div>
+                      <div className="spark-particle spark-particle-8"></div>
+                    </>
+                  )}
                 </div>
                 <div className="transaction-item">
                   <div className="transaction-icon">
@@ -224,24 +291,42 @@ export default function FiveLanding() {
               </div>
 
               <div className="sparks-meter">
-                <div className="sparks-meter-label">Sparks Available: 6,200</div>
+                <div className="sparks-meter-label">
+                  Sparks Available: {Math.round(sparksAmount).toLocaleString()}
+                </div>
                 <div className="sparks-meter-bar">
-                  <div className="sparks-meter-fill" style={{ width: '78%' }} />
+                  <div
+                    className={`sparks-meter-fill ${sparksDraining ? 'sparks-draining' : ''}`}
+                    style={{ width: `${(sparksAmount / 8000) * 100}%` }}
+                  />
                 </div>
               </div>
 
-              <button 
-                className="btn-erase"
+              <button
+                className={`btn-erase ${boltErased ? 'btn-erase-disabled' : ''}`}
                 onClick={handleEraserClick}
+                disabled={boltErased}
               >
-                ERASE THAT BOLT CHARGE
+                {boltErased ? 'BOLT CHARGE ERASED' : 'ERASE THAT BOLT CHARGE'}
               </button>
 
               {eraserTriggered && (
-                <div className="eraser-success">
-                  <div className="eraser-success-amount">+₦5,800</div>
-                  <div className="eraser-success-text">ERASED. GONE. DONE.</div>
+                <div className="eraser-success-line">
+                  <svg className="success-bolt" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  <span className="success-amount">₦5,800</span>
+                  <span className="success-text">credited back to your wallet.</span>
                 </div>
+              )}
+
+              {boltErased && (
+                <button
+                  className="btn-reset-demo"
+                  onClick={handleResetDemo}
+                >
+                  Reset Demo
+                </button>
               )}
             </div>
           </div>

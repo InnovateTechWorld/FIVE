@@ -684,11 +684,89 @@ body {
   background: oklch(22% 0.01 240);
   border: var(--rule-hairline) solid oklch(28% 0.01 240);
   border-radius: var(--radius-md);
-  transition: border-color var(--dur-fast) var(--ease-out);
+  transition: all var(--dur-fast) var(--ease-out);
+  position: relative;
+  overflow: visible;
 }
 
 .transaction-item:hover {
   border-color: var(--color-accent);
+}
+
+/* Pre-erase state: Bolt row has subtle pulsing red border */
+.transaction-item-bolt:not(.transaction-erased):not(.transaction-erasing) {
+  border-color: oklch(62% 0.22 25 / 0.3);
+  animation: preBoltPulse 2s var(--ease-in-out) infinite;
+}
+
+@keyframes preBoltPulse {
+  0%, 100% {
+    border-color: oklch(62% 0.22 25 / 0.2);
+    box-shadow: 0 0 0 oklch(62% 0.22 25 / 0);
+  }
+  50% {
+    border-color: oklch(62% 0.22 25 / 0.4);
+    box-shadow: 0 0 8px oklch(62% 0.22 25 / 0.2);
+  }
+}
+
+/* Step 1: Flash confirmation */
+.transaction-item.transaction-erasing {
+  border-color: var(--color-accent);
+  animation: confirmFlash 0.15s var(--ease-out);
+}
+
+@keyframes confirmFlash {
+  0% {
+    box-shadow: 0 0 0 oklch(93% 0.26 115 / 0);
+  }
+  50% {
+    box-shadow: 0 0 20px oklch(93% 0.26 115 / 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 oklch(93% 0.26 115 / 0);
+  }
+}
+
+/* Step 2-3: Burn and sweep */
+.transaction-item.transaction-erasing::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--color-accent);
+  animation: voltSweep 0.3s var(--ease-out) 0.2s forwards;
+}
+
+@keyframes voltSweep {
+  from {
+    left: 0;
+    width: 3px;
+    opacity: 1;
+  }
+  to {
+    left: 100%;
+    width: 3px;
+    opacity: 0;
+  }
+}
+
+/* Step 4: Ghost state */
+.transaction-item.transaction-erased {
+  opacity: 0.25;
+  border-color: oklch(30% 0.01 240);
+  border-left: 2px solid var(--color-teal);
+}
+
+.transaction-item.transaction-erased .transaction-merchant {
+  color: var(--color-ink-3);
+  font-size: var(--text-sm);
+}
+
+.transaction-item.transaction-erased .transaction-icon {
+  opacity: 0.4;
 }
 
 .transaction-icon {
@@ -731,6 +809,151 @@ body {
   font-size: var(--text-base);
   color: var(--color-red);
   font-weight: 500;
+  position: relative;
+}
+
+/* Step 2: Amount fragmenting */
+.transaction-amount.amount-fragmenting {
+  animation: amountPulseBreak 0.5s var(--ease-out) forwards;
+}
+
+@keyframes amountPulseBreak {
+  0% {
+    color: var(--color-red);
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  20% {
+    color: var(--color-red);
+    transform: scale(1.1);
+    filter: brightness(1.5);
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9) translateY(-8px);
+    filter: blur(2px);
+  }
+}
+
+/* Step 5: Credit amount counting up */
+.amount-credited {
+  color: var(--color-teal);
+  animation: creditCountUp 0.6s var(--ease-out);
+  display: inline-block;
+}
+
+@keyframes creditCountUp {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Spark particles */
+.spark-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10;
+  right: 10%;
+  top: 50%;
+  box-shadow: 0 0 8px var(--color-accent);
+}
+
+.spark-particle-1 {
+  animation: sparkBurst 0.6s var(--ease-out) 0.25s forwards;
+  --drift-x: 40px;
+  --drift-y: -30px;
+}
+
+.spark-particle-2 {
+  animation: sparkBurst 0.6s var(--ease-out) 0.27s forwards;
+  --drift-x: 35px;
+  --drift-y: 25px;
+}
+
+.spark-particle-3 {
+  animation: sparkBurst 0.6s var(--ease-out) 0.24s forwards;
+  --drift-x: -25px;
+  --drift-y: -35px;
+}
+
+.spark-particle-4 {
+  animation: sparkBurst 0.6s var(--ease-out) 0.28s forwards;
+  --drift-x: -30px;
+  --drift-y: 30px;
+}
+
+.spark-particle-5 {
+  animation: sparkBurst 0.6s var(--ease-out) 0.26s forwards;
+  --drift-x: 50px;
+  --drift-y: 5px;
+}
+
+.spark-particle-6 {
+  animation: sparkBurst 0.6s var(--ease-out) 0.29s forwards;
+  --drift-x: -40px;
+  --drift-y: -10px;
+}
+
+.spark-particle-7 {
+  animation: sparkBurst 0.6s var(--ease-out) 0.25s forwards;
+  --drift-x: 20px;
+  --drift-y: -40px;
+}
+
+.spark-particle-8 {
+  animation: sparkBurst 0.6s var(--ease-out) 0.27s forwards;
+  --drift-x: -15px;
+  --drift-y: 35px;
+}
+
+@keyframes sparkBurst {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--drift-x), var(--drift-y)) scale(0.3);
+  }
+}
+
+/* Step 6: Feed pulse */
+.transaction-feed.feed-pulsing::after {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border-radius: var(--radius-lg);
+  background: radial-gradient(circle at 50% 30%, var(--color-accent-soft), transparent 70%);
+  animation: feedPulse 1s var(--ease-out) 0.3s forwards;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+}
+
+@keyframes feedPulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  30% {
+    opacity: 0.15;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
 }
 
 .sparks-meter {
@@ -756,6 +979,11 @@ body {
   height: 100%;
   background: linear-gradient(90deg, var(--color-accent), var(--color-teal));
   border-radius: var(--radius-full);
+  transition: width 0.05s linear;
+}
+
+.sparks-meter-fill.sparks-draining {
+  transition: width 0.6s linear;
 }
 
 .btn-erase {
@@ -797,40 +1025,87 @@ body {
   cursor: not-allowed;
 }
 
-.eraser-success {
-  position: absolute;
-  bottom: var(--space-xl);
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--color-teal);
-  color: var(--color-paper);
-  padding: var(--space-lg) var(--space-2xl);
-  border-radius: var(--radius-md);
-  text-align: center;
-  animation: successSlide var(--dur-base) var(--ease-out);
+.btn-erase.btn-erase-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  animation: none;
 }
 
-@keyframes successSlide {
+.eraser-success-line {
+  margin-top: var(--space-xl);
+  padding: var(--space-md) 0;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-cream);
+  animation: successLineFade var(--dur-base) var(--ease-out);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+@keyframes successLineFade {
   from {
     opacity: 0;
-    transform: translateX(-50%) translateY(20px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
   }
 }
 
-.eraser-success-amount {
-  font-family: var(--font-display);
-  font-size: var(--text-3xl);
-  margin-bottom: var(--space-xs);
+.success-bolt {
+  color: var(--color-accent);
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  animation: successBoltGlow 1s var(--ease-in-out) infinite;
 }
 
-.eraser-success-text {
-  font-family: var(--font-display);
-  font-size: var(--text-base);
-  letter-spacing: 0.1em;
+@keyframes successBoltGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px var(--color-accent));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px var(--color-accent));
+  }
+}
+
+.success-amount {
+  color: var(--color-teal);
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.success-text {
+  color: var(--color-ink-2);
+}
+
+.btn-reset-demo {
+  width: 100%;
+  margin-top: var(--space-md);
+  background: transparent;
+  color: var(--color-ink-3);
+  border: var(--rule-hairline) solid var(--color-border);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-out);
+}
+
+.btn-reset-demo:hover {
+  color: var(--color-ink);
+  border-color: var(--color-accent-dim);
+  transform: translateY(-1px);
+}
+
+.btn-reset-demo:active {
+  transform: translateY(0);
 }
 
 @media (max-width: 1024px) {
@@ -851,6 +1126,55 @@ body {
 
   .eraser-demo-container {
     gap: var(--space-xl);
+  }
+
+  .transaction-item {
+    padding: var(--space-sm) var(--space-md);
+    gap: var(--space-sm);
+  }
+
+  .transaction-icon {
+    width: 40px;
+    height: 28px;
+  }
+
+  .transaction-logo {
+    width: 32px;
+    height: 20px;
+  }
+
+  .transaction-merchant {
+    font-size: var(--text-sm);
+  }
+
+  .transaction-amount {
+    font-size: var(--text-sm);
+  }
+
+  .eraser-success-line {
+    font-size: var(--text-sm);
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .success-bolt {
+    width: 16px;
+    height: 16px;
+  }
+
+  .spark-particle {
+    width: 3px;
+    height: 3px;
+  }
+
+  .spark-particle-1,
+  .spark-particle-2,
+  .spark-particle-3,
+  .spark-particle-4,
+  .spark-particle-5,
+  .spark-particle-6,
+  .spark-particle-7,
+  .spark-particle-8 {
+    animation-duration: 0.5s;
   }
 }
 
