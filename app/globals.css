@@ -51,10 +51,11 @@ body {
   animation: fadeOut var(--dur-slow) var(--ease-in-out) 1.2s forwards;
 }
 
-.loading-bolt {
-  font-size: var(--text-5xl);
-  color: var(--color-accent);
-  animation: boltPulse var(--dur-slower) var(--ease-out) 1;
+.loading-logo {
+  max-width: 240px;
+  height: auto;
+  display: block;
+  animation: boltPulse var(--dur-slower) var(--ease-out) infinite;
 }
 
 @keyframes boltPulse {
@@ -108,11 +109,16 @@ body {
 }
 
 .nav-logo {
-  font-family: var(--font-display);
-  font-size: var(--text-xl);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo-img {
+  height: 80px;
+  margin-top: -26px;
+  margin-bottom: -26px;
+  width: auto;
+  display: block;
 }
 
 .nav-center {

@@ -79,7 +79,11 @@ export default function FiveLanding() {
   if (isLoading) {
     return (
       <div className="loading-screen">
-        <div className="loading-bolt">⚡</div>
+        <img
+          src="/assets/logo_head_five2.png"
+          alt="FIVE Logo"
+          className="loading-logo"
+        />
       </div>
     );
   }
@@ -88,7 +92,9 @@ export default function FiveLanding() {
     <>
       <nav className={`nav ${isScrolled ? 'nav-scrolled' : ''}`}>
         <div className="nav-container">
-          <div className="nav-logo">FIVE</div>
+          <div className="nav-logo">
+            <img src="/assets/FIVE_LOGO_DRAFT2.png" alt="FIVE" className="nav-logo-img" />
+          </div>
           <div className="nav-center">Lagos · UNILAG First Drop · 2026</div>
           <div className="nav-spots">● {spotsLeft} Founding Spots Left</div>
         </div>
