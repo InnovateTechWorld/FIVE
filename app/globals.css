@@ -1613,50 +1613,104 @@ body {
 
 /* SECTION 07 — CAMPUS ENERGY */
 .campus-energy {
-  padding: var(--space-4xl) var(--space-xl);
-  background: var(--color-paper-1);
-  border-top: var(--rule-hairline) solid var(--color-border);
+  position: relative;
+  height: 75vh;
+  min-height: 500px;
+  background-image: url('/assets/full_photograph_campus section.png');
+  background-size: cover;
+  background-position: center 45%;
+  background-repeat: no-repeat;
+  overflow: hidden;
 }
 
-.campus-locations {
-  max-width: 90rem;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--space-lg);
+.campus-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+    rgba(6, 6, 12, 0.92) 0%,
+    rgba(6, 6, 12, 0.4) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
 }
 
-.campus-location {
-  font-family: var(--font-display);
-  font-size: var(--text-3xl);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--color-ink-2);
-  text-align: center;
-  padding: var(--space-3xl) var(--space-xl);
-  background: var(--color-paper-2);
-  border: var(--rule-hairline) solid var(--color-border);
-  border-radius: var(--radius-lg);
-  transition: all var(--dur-fast) var(--ease-out);
+.campus-text {
+  position: absolute;
+  bottom: 48px;
+  left: 48px;
+  z-index: 2;
+  max-width: 600px;
 }
 
-.campus-location:hover {
+.campus-text-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
   color: var(--color-accent);
-  border-color: var(--color-accent);
-  transform: translateY(-4px);
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+}
+
+.campus-text-headline {
+  font-family: var(--font-display);
+  font-size: var(--text-5xl);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  margin-bottom: var(--space-md);
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.campus-text-locations {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  color: var(--color-ink-2);
+  line-height: 1.6;
 }
 
 @media (max-width: 768px) {
   .campus-energy {
-    padding: var(--space-2xl) var(--space-lg);
+    height: 60vh;
+    min-height: 400px;
+    background-position: 60% 25%;
   }
 
-  .campus-locations {
-    grid-template-columns: 1fr;
+  .campus-photo-overlay {
+    background: linear-gradient(to top,
+      rgba(6, 6, 12, 0.95) 0%,
+      rgba(6, 6, 12, 0.5) 50%,
+      transparent 75%
+    );
   }
 
-  .campus-location {
-    font-size: var(--text-2xl);
+  .campus-text {
+    bottom: 24px;
+    top: auto;
+    left: 20px;
+    right: 20px;
+    max-width: none;
+  }
+
+  .campus-text-headline {
+    font-size: var(--text-4xl);
+  }
+
+  .campus-text-locations {
+    font-size: var(--text-base);
+  }
+
+  .campus-text-locations::after {
+    content: 'New Hall. Yaba. UNILAG. Everywhere next.';
+  }
+
+  .campus-text-locations {
+    font-size: 0;
+  }
+
+  .campus-text-locations::after {
+    font-size: var(--text-base);
   }
 }
 

@@ -467,11 +467,16 @@ export default function FiveLanding() {
 
         {/* SECTION 07 — CAMPUS ENERGY */}
         <section className="campus-energy">
-          <div className="campus-locations">
-            <div className="campus-location">NEW HALL</div>
-            <div className="campus-location">YABA</div>
-            <div className="campus-location">UNILAG</div>
-            <div className="campus-location">MAINLAND NIGHTS</div>
+          <div className="campus-photo-overlay"></div>
+          <div className="campus-text">
+            <div className="campus-text-eyebrow">LAUNCHING HERE FIRST</div>
+            <h2 className="campus-text-headline">
+              BUILT FOR<br />
+              THESE STREETS.
+            </h2>
+            <p className="campus-text-locations">
+              New Hall. Yaba. UNILAG. Mainland. Everywhere next.
+            </p>
           </div>
         </section>
 
