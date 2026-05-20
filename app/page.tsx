@@ -393,18 +393,6 @@ export default function FiveLanding() {
               className="card-showcase-image"
             />
           </div>
-
-          <div className="card-unlock-paths">
-            <div className="unlock-path">
-              <div className="unlock-path-label">OPTION 1</div>
-              <div className="unlock-path-title">Form your squad</div>
-            </div>
-            <div className="unlock-divider">OR</div>
-            <div className="unlock-path">
-              <div className="unlock-path-label">OPTION 2</div>
-              <div className="unlock-path-title">Deposit ₦5,000</div>
-            </div>
-          </div>
         </section>
 
         {/* SECTION 06 — MULTIPLIERS */}
@@ -412,37 +400,66 @@ export default function FiveLanding() {
           <div className="multipliers-container">
             <h2 className="section-headline">MONEY MOVES BETTER TOGETHER.</h2>
             <p className="multipliers-desc">
-              Your squad multiplies your Sparks, unlock speed, and Eraser power.
+              Your squad multiplies your Sparks, unlocks speed, and Eraser power.
             </p>
 
             <div className="squad-visual">
               <div className="squad-node squad-node-filled">YOU</div>
-              <div className="squad-connector" />
-              <div className="squad-node squad-node-empty" />
-              <div className="squad-connector" />
-              <div className="squad-node squad-node-empty" />
-              <div className="squad-connector" />
-              <div className="squad-node squad-node-empty" />
-              <div className="squad-connector" />
-              <div className="squad-node squad-node-empty" />
+              <div className="squad-connector squad-connector-active"></div>
+              <div className="squad-node squad-node-empty"></div>
+              <div className="squad-connector"></div>
+              <div className="squad-node squad-node-empty"></div>
+              <div className="squad-connector"></div>
+              <div className="squad-node squad-node-empty"></div>
+              <div className="squad-connector"></div>
+              <div className="squad-node squad-node-empty"></div>
             </div>
 
             <div className="multiplier-table">
-              <div className="multiplier-row">
+              <div className="multiplier-row multiplier-row-solo">
                 <div className="multiplier-label">SOLO</div>
                 <div className="multiplier-value">1×</div>
               </div>
-              <div className="multiplier-row">
+              <div className="multiplier-row multiplier-row-squad">
                 <div className="multiplier-label">SQUAD</div>
                 <div className="multiplier-value">1.5×</div>
               </div>
-              <div className="multiplier-row">
+              <div className="multiplier-row multiplier-row-streak">
                 <div className="multiplier-label">FULL STREAK</div>
                 <div className="multiplier-value">2×</div>
               </div>
-              <div className="multiplier-row">
+              <div className="multiplier-row multiplier-row-bounty">
                 <div className="multiplier-label">BOUNTY ZONES</div>
                 <div className="multiplier-value">Up to 10×</div>
+              </div>
+            </div>
+
+            <div className="unlock-section">
+              <h3 className="unlock-section-title">Unlock the card two ways</h3>
+              <div className="card-unlock-paths">
+                <div className="unlock-path unlock-path-primary">
+                  <div className="unlock-path-label">OPTION 1</div>
+                  <div className="unlock-path-title">Form your squad</div>
+                  <div className="unlock-path-steps">
+                    <p>Invite 4 friends.</p>
+                    <p>Squad completes.</p>
+                    <p>Card unlocks.</p>
+                  </div>
+                </div>
+                <div className="unlock-divider">
+                  <span className="unlock-divider-line"></span>
+                  <span className="unlock-divider-text">OR</span>
+                  <span className="unlock-divider-line"></span>
+                </div>
+                <div className="unlock-path">
+                  <div className="unlock-path-label">OPTION 2</div>
+                  <div className="unlock-path-title">Deposit ₦5,000</div>
+                  <div className="unlock-path-steps">
+                    <p>One-time deposit.</p>
+                    <p>Instant approval.</p>
+                    <p>First card drop on launch day.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
