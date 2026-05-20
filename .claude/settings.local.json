@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/User/.claude/skills/hallmark/references/**)",
+      "Read(//c/Users/User/.claude/skills/hallmark/references/macrostructures/**)"
+    ]
+  }
+}

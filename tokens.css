@@ -1,0 +1,98 @@
+/* FIVE ⚡ Design Tokens · Custom Theme
+ * Vibe: matte black volt green nightlife premium
+ * Paper: oklch(4% 0.01 240) Carbon Black · Accent: oklch(93% 0.26 115) Volt Green
+ * Display: Bebas Neue · Body: Cabinet Grotesk · Data: DM Mono
+ * Axes: dark / display-condensed / chromatic-green
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabinet+Grotesk:wght@400..900&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Color System — OKLCH */
+  --color-paper: oklch(4% 0.01 240);
+  --color-paper-1: oklch(8% 0.01 240);
+  --color-paper-2: oklch(12% 0.01 240);
+  --color-paper-3: oklch(16% 0.01 240);
+  
+  --color-ink: oklch(92% 0.01 90);
+  --color-ink-2: oklch(75% 0.01 90);
+  --color-ink-3: oklch(55% 0.01 90);
+  
+  --color-accent: oklch(93% 0.26 115);
+  --color-accent-dim: oklch(88% 0.24 115);
+  --color-accent-soft: oklch(93% 0.26 115 / 0.12);
+  
+  --color-teal: oklch(75% 0.15 180);
+  --color-red: oklch(62% 0.22 25);
+  --color-cream: oklch(90% 0.03 85);
+  --color-silver: oklch(80% 0.01 240);
+  
+  --color-focus: var(--color-accent);
+  --color-border: oklch(20% 0.01 240);
+  --color-border-subtle: oklch(12% 0.01 240);
+  
+  /* Typography */
+  --font-display: 'Bebas Neue', 'Impact', sans-serif;
+  --font-body: 'Cabinet Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'DM Mono', 'Courier New', monospace;
+  
+  --text-display-2xl: clamp(5rem, 12vw, 10rem);
+  --text-display-xl: clamp(4rem, 10vw, 8rem);
+  --text-display: clamp(3rem, 8vw, 6rem);
+  --text-display-s: clamp(2.5rem, 6vw, 4.5rem);
+  
+  --text-5xl: clamp(2.5rem, 5vw, 4rem);
+  --text-4xl: clamp(2rem, 4vw, 3rem);
+  --text-3xl: clamp(1.75rem, 3.5vw, 2.5rem);
+  --text-2xl: clamp(1.5rem, 3vw, 2rem);
+  --text-xl: clamp(1.25rem, 2.5vw, 1.75rem);
+  --text-lg: clamp(1.125rem, 2vw, 1.5rem);
+  --text-base: 1rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+  
+  /* Spacing — 4pt scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+  --space-5xl: 8rem;
+  --space-6xl: 12rem;
+  --space-7xl: 16rem;
+  
+  /* Motion */
+  --dur-instant: 150ms;
+  --dur-fast: 250ms;
+  --dur-base: 400ms;
+  --dur-slow: 600ms;
+  --dur-slower: 800ms;
+  
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  
+  /* Borders & Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+  
+  --rule-hairline: 1px;
+  --rule-thin: 2px;
+  --rule-base: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-instant: 0ms;
+    --dur-fast: 150ms;
+    --dur-base: 150ms;
+    --dur-slow: 150ms;
+    --dur-slower: 150ms;
+  }
+}
