@@ -58,10 +58,10 @@ export default function FiveLanding() {
 
   const expenses = [
     { id: 'bolt', label: 'Bolt Ride', icon: <BoltLogo className="expense-icon-svg" />, amount: 5800 },
-    { id: 'food', label: 'Food', icon: <img src="/assets/food_flash_icon.png" alt="Food" className="expense-icon-img" />, amount: 3500 },
-    { id: 'data', label: 'Data', icon: <img src="/assets/flash_data_icon.png" alt="Data" className="expense-icon-img" />, amount: 2000 },
+    { id: 'food', label: 'Food', icon: <img src="/assets/food_flash_icon.png" alt="Food" className="expense-icon-img" decoding="async" loading="eager" />, amount: 3500 },
+    { id: 'data', label: 'Data', icon: <img src="/assets/flash_data_icon.png" alt="Data" className="expense-icon-img" decoding="async" loading="eager" />, amount: 2000 },
     { id: 'subscriptions', label: 'Spotify', icon: <SpotifyLogo className="expense-icon-svg" />, amount: 2900 },
-    { id: 'other', label: 'Other', icon: <img src="/assets/other_expense_icon.png" alt="Other" className="expense-icon-img" />, amount: 0 },
+    { id: 'other', label: 'Other', icon: <img src="/assets/other_expense_icon.png" alt="Other" className="expense-icon-img" decoding="async" loading="eager" />, amount: 0 },
   ];
 
   const handleEraserClick = () => {
@@ -83,6 +83,8 @@ export default function FiveLanding() {
           src="/assets/logo_head_five2.png"
           alt="FIVE Logo"
           className="loading-logo"
+          decoding="async"
+          loading="eager"
         />
       </div>
     );
@@ -93,7 +95,7 @@ export default function FiveLanding() {
       <nav className={`nav ${isScrolled ? 'nav-scrolled' : ''}`}>
         <div className="nav-container">
           <div className="nav-logo">
-            <img src="/assets/FIVE_LOGO_DRAFT2.png" alt="FIVE" className="nav-logo-img" />
+            <img src="/assets/FIVE_LOGO_DRAFT2.png" alt="FIVE" className="nav-logo-img" decoding="async" loading="eager" />
           </div>
           <div className="nav-center">Lagos · UNILAG First Drop · 2026</div>
           <div className="nav-spots">● {spotsLeft} Founding Spots Left</div>
@@ -232,7 +234,7 @@ export default function FiveLanding() {
                 className="btn-erase"
                 onClick={handleEraserClick}
               >
-                ERASE THAT UBER CHARGE
+                ERASE THAT BOLT CHARGE
               </button>
 
               {eraserTriggered && (
@@ -254,6 +256,8 @@ export default function FiveLanding() {
                   src="/assets/card_flash_sparks.png"
                   alt="Spend normally"
                   className="how-step-icon"
+                  decoding="async"
+                  loading="lazy"
                 />
               </div>
               <h3 className="how-step-title">Spend Normally</h3>
@@ -265,6 +269,8 @@ export default function FiveLanding() {
                   src="/assets/flash-sparks.png"
                   alt="Earn sparks"
                   className="how-step-icon"
+                  decoding="async"
+                  loading="lazy"
                 />
               </div>
               <h3 className="how-step-title">Earn Sparks</h3>
@@ -276,6 +282,8 @@ export default function FiveLanding() {
                   src="/assets/eraser-five-icons.png"
                   alt="Erase expenses"
                   className="how-step-icon"
+                  decoding="async"
+                  loading="lazy"
                 />
               </div>
               <h3 className="how-step-title">Erase Expenses</h3>
