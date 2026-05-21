@@ -229,11 +229,6 @@ export default function FiveLanding() {
                 <p>Hoard Sparks from spending.</p>
                 <p>Burn them to erase real expenses.</p>
               </div>
-
-              <div className="eraser-demo-proof">
-                <p>No one screenshots a ₦15 OPay alert.</p>
-                <p>Everyone screenshots ₦5,800 disappearing at 1am.</p>
-              </div>
             </div>
 
             <div className="eraser-demo-feed">
@@ -522,19 +517,36 @@ export default function FiveLanding() {
                   />
                 </div>
                 <div className="form-row">
-                  <input 
-                    type="text" 
-                    placeholder="Faculty / Department" 
-                    className="form-input"
+                  <select
+                    className="form-input form-select"
                     required
-                  />
-                  <input 
-                    type="text" 
-                    placeholder="Selected Expense" 
-                    className="form-input"
-                    value={selectedExpense ? expenses.find(e => e.id === selectedExpense)?.label : ''}
-                    readOnly
-                  />
+                    defaultValue=""
+                  >
+                    <option value="" disabled>Faculty / Department</option>
+                    <option value="arts">Arts</option>
+                    <option value="science">Science</option>
+                    <option value="social-sciences">Social Sciences</option>
+                    <option value="engineering">Engineering</option>
+                    <option value="medicine">Medicine</option>
+                    <option value="law">Law</option>
+                    <option value="education">Education</option>
+                    <option value="business">Business Administration</option>
+                    <option value="environmental">Environmental Sciences</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <select
+                    className={`form-input form-select ${selectedExpense ? 'form-input-confirmed' : ''}`}
+                    required
+                    value={selectedExpense}
+                    onChange={(e) => setSelectedExpense(e.target.value)}
+                  >
+                    <option value="" disabled>Selected Expense</option>
+                    <option value="bolt">Bolt Ride</option>
+                    <option value="food">Food</option>
+                    <option value="data">Data</option>
+                    <option value="subscriptions">Spotify</option>
+                    <option value="other">Other</option>
+                  </select>
                 </div>
 
                 <div className="squad-preview">
@@ -560,7 +572,11 @@ export default function FiveLanding() {
             </div>
           ) : (
             <div className="founding-success">
-              <div className="founding-success-bolt">⚡</div>
+              <div className="founding-success-bolt">
+                <svg viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13 2L3 20h8l-1 14 12-18h-9l2-14z" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
               <h2 className="founding-success-title">YOU'RE IN.</h2>
               <div className="founding-success-position">#{waitlistPosition}</div>
               <p className="founding-success-message">
