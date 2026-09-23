@@ -1,36 +1,179 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FIVE ⚡
 
-## Getting Started
+FIVE is a cinematic landing experience for a card concept built around one core idea: **spend normally, earn Sparks, and erase real expenses**.
 
-First, run the development server:
+I built this repo as a focused, single-page product drop for the **UNILAG first launch story**—dark, premium, and interaction-led rather than a generic fintech brochure.
+
+---
+
+## Why this project exists
+
+Most fintech pages explain features. FIVE is designed to make people *feel* the mechanic first, then understand it:
+
+- Curiosity (visual hook)
+- Desire (card + motion)
+- Proof (interactive Eraser demo)
+- Commitment (founding-access form)
+
+The goal is emotional clarity with minimal friction.
+
+---
+
+## What users can do right now
+
+The current implementation is a one-page interactive flow with:
+
+- Loading intro
+- Sticky nav with launch context and scarcity copy
+- Hero with expense selector
+- Animated card loop (expense flash + balance tick)
+- Interactive “Eraser” transaction demo
+- “How it works” 3-step section
+- Card showcase + unlock paths
+- Squad/multiplier section
+- Campus energy visual section
+- Scrolling social-proof feed
+- Founding-access form and success state
+- Final close CTA
+
+> Note: this repo is currently frontend-only. Form submission and waitlist position are local UI behavior (no backend/API persistence yet).
+
+---
+
+## Engineering architecture
+
+This project is intentionally simple and fast:
+
+- **Framework:** Next.js App Router
+- **Main page:** `app/page.tsx` (single client component)
+- **Styling:** handcrafted global CSS + design tokens
+- **Assets:** static files in `public/assets`
+- **State:** local React state (`useState`) and lifecycle effects (`useEffect`)
+
+Design system foundations:
+
+- Tokens are centralized in `tokens.css` (color, type, spacing, motion, radius)
+- Section-by-section styling lives in `app/globals.css`
+- Motion is CSS-first, with reduced-motion fallback support
+
+This keeps the experience highly art-directed without introducing unnecessary framework complexity.
+
+---
+
+## AI in this repository
+
+There is **no end-user AI runtime feature** in the app itself today.
+
+AI appears in the **creative/development workflow context** (for example, design-direction artifacts like `FIVE-INFO.md` and `.hallmark/log.json`), but the shipped page logic is standard React + CSS animation.
+
+---
+
+## Tech stack
+
+- Next.js `16.2.6`
+- React `19.2.4`
+- TypeScript `5`
+- ESLint `9` + `eslint-config-next`
+- Tailwind packages are installed, but this implementation is currently CSS-token driven rather than Tailwind utility driven
+
+---
+
+## Project structure
+
+```text
+FIVE/
+├── app/
+│   ├── layout.tsx        # Root layout + metadata
+│   ├── page.tsx          # Main landing page UI and interactions
+│   └── globals.css       # Section styles and animations
+├── public/
+│   └── assets/           # Card/logo/icons/campus image assets
+├── tokens.css            # Design tokens (theme primitives)
+├── AGENTS.md             # Agent guidance note for this repo
+├── FIVE-INFO.md          # Creative + product direction document
+├── eslint.config.mjs     # Lint configuration
+├── next.config.ts        # Next.js config
+├── tsconfig.json         # TypeScript config
+└── package.json
+```
+
+---
+
+## Local setup
+
+### Prerequisites
+
+- Node.js (modern LTS recommended)
+- npm
+
+### Install
+
+```bash
+npm install
+```
+
+### Run locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts
 
-## Learn More
+From `package.json`:
 
-To learn more about Next.js, take a look at the following resources:
+- `npm run dev` — start local dev server
+- `npm run build` — production build
+- `npm run start` — run built app
+- `npm run lint` — lint with ESLint
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Configuration & environment variables
 
-## Deploy on Vercel
+There are currently **no required environment variables** for local development.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+If/when backend integrations are added (waitlist storage, referrals, analytics, etc.), this section should be expanded with explicit `.env` requirements.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Testing & quality practices
+
+Current quality checks in-repo:
+
+- Type-safe implementation with TypeScript
+- ESLint via `npm run lint`
+- Motion accessibility fallback via `prefers-reduced-motion`
+
+There are no automated unit/integration test suites yet in this repository.
+
+---
+
+## Deployment considerations
+
+This is a standard Next.js app and can be deployed anywhere that supports Next.js builds.
+
+Typical flow:
+
+1. `npm run build`
+2. `npm run start` (or deploy to a managed platform like Vercel)
+
+Because the current experience is primarily static + client interactions, deployment is straightforward.
+
+---
+
+## Contributing
+
+If you contribute, please keep the core intent intact:
+
+- Protect the emotional pacing of the page
+- Keep motion premium and restrained
+- Prefer token-driven design consistency over ad-hoc styles
+- Preserve mobile experience quality
+- Avoid introducing complexity unless it unlocks clear product value
+
+For implementation edits, start from `app/page.tsx`, `app/globals.css`, and `tokens.css` first.
